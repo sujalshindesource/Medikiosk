@@ -11,6 +11,7 @@ import {
   Lock
 } from 'lucide-react';
 import { safeSupabaseCall, isSupabaseConfigured } from '../../supabaseClient';
+import { t } from './landingStrings';
 
 export default function PatientAuth({ patientData, setPatientData, onComplete, lang }) {
   const [abhaVerified, setAbhaVerified] = useState(true);
@@ -28,7 +29,7 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!patientData.fullName || !patientData.email) {
-      setErrorMsg(lang === 'en' ? 'Please provide both Full Name and a valid Email ID' : 'कृपया पूरा नाम और मान्य ईमेल आईडी दोनों दर्ज करें');
+      setErrorMsg(t(lang, 'registration.errorRequired'));
       return;
     }
     setErrorMsg('');
@@ -55,38 +56,34 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
     <div className="max-w-2xl mx-auto my-4">
       
       {/* Registration Card */}
-      <div className="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-700/80 shadow-2xl overflow-hidden">
+      <div className="bg-surface rounded-2xl sm:rounded-3xl border border-line shadow-sm overflow-hidden">
         
         {/* Header Ribbon */}
-        <div className="relative p-8 bg-gradient-to-r from-blue-950 via-slate-900 to-slate-900 border-b border-slate-800">
+        <div className="relative p-6 sm:p-8 bg-surface border-b border-line">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-              <User className="w-6 h-6" />
-            </div>
+            <User className="w-6 h-6 text-teal shrink-0" />
             <div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">
-                {lang === 'en' ? 'Patient Digital Registration' : 'मरीज डिजिटल पंजीकरण'}
+              <h2 className="text-2xl font-serif font-semibold text-ink tracking-tight">
+                {t(lang, 'registration.title')}
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'en' 
-                  ? 'Link your ABHA Health ID or register a new clinical profile' 
-                  : 'अपना आभा हेल्थ आईडी लिंक करें या नया प्रोफाइल पंजीकृत करें'}
+              <p className="text-xs text-ink-soft mt-0.5 font-sans">
+                {t(lang, 'registration.subtext')}
               </p>
             </div>
           </div>
 
-          <div className="absolute right-6 top-8 hidden sm:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+          <div className="absolute right-6 top-8 hidden sm:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-teal-tint border border-teal/20 text-teal text-xs font-semibold">
             <Lock className="w-3.5 h-3.5" />
-            <span>256-Bit SSL Encrypted</span>
+            <span>{t(lang, 'registration.sslBadge')}</span>
           </div>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
           
           {errorMsg && (
-            <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs flex items-center space-x-2">
-              <Info className="w-4 h-4 text-red-400 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-alert-tint border border-alert/30 text-alert text-xs flex items-center space-x-2">
+              <Info className="w-4 h-4 text-alert shrink-0" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -96,31 +93,31 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
             
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                {lang === 'en' ? 'Full Legal Name *' : 'पूरा कानूनी नाम *'}
+              <label className="block text-xs font-medium text-ink-soft mb-2 font-sans">
+                {t(lang, 'registration.nameLabel')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ink-faint">
                   <User className="w-4 h-4" />
                 </div>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Rajesh Kumar"
+                  placeholder={t(lang, 'registration.namePlaceholder')}
                   value={patientData.fullName}
                   onChange={(e) => setPatientData({ ...patientData, fullName: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-bg border border-line text-ink placeholder:text-ink-faint text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal transition font-sans"
                 />
               </div>
             </div>
 
             {/* Email ID */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                {lang === 'en' ? 'Patient Email ID *' : 'मरीज ईमेल आईडी *'}
+              <label className="block text-xs font-medium text-ink-soft mb-2 font-sans">
+                {t(lang, 'registration.emailLabel')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ink-faint">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -129,10 +126,10 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
                   placeholder="e.g. rajesh.kumar@healthvault.in"
                   value={patientData.email || ''}
                   onChange={(e) => setPatientData({ ...patientData, email: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-bg border border-line text-ink placeholder:text-ink-faint text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal transition font-sans"
                 />
               </div>
-              <p className="text-[11px] text-slate-400 mt-1">For receiving digital summaries & e-prescriptions</p>
+              <p className="text-[11px] text-ink-faint mt-1 font-sans">{t(lang, 'registration.emailSubtext')}</p>
             </div>
 
           </div>
@@ -142,11 +139,11 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
             
             {/* Age */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                {lang === 'en' ? 'Age (Years)' : 'आयु (वर्ष)'}
+              <label className="block text-xs font-medium text-ink-soft mb-2 font-sans">
+                {t(lang, 'registration.ageLabel')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ink-faint">
                   <Calendar className="w-4 h-4" />
                 </div>
                 <input
@@ -155,28 +152,28 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
                   max="120"
                   value={patientData.age}
                   onChange={(e) => setPatientData({ ...patientData, age: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-bg border border-line text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal transition font-sans"
                 />
               </div>
             </div>
 
             {/* Gender */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                {lang === 'en' ? 'Gender' : 'लिंग'}
+              <label className="block text-xs font-medium text-ink-soft mb-2 font-sans">
+                {t(lang, 'registration.genderLabel')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-ink-faint">
                   <Users className="w-4 h-4" />
                 </div>
                 <select
                   value={patientData.gender}
                   onChange={(e) => setPatientData({ ...patientData, gender: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition appearance-none cursor-pointer"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-bg border border-line text-ink text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal transition appearance-none cursor-pointer font-sans"
                 >
-                  <option value="Male">{lang === 'en' ? 'Male' : 'पुरुष'}</option>
-                  <option value="Female">{lang === 'en' ? 'Female' : 'महिला'}</option>
-                  <option value="Other">{lang === 'en' ? 'Other' : 'अन्य'}</option>
+                  <option value="Male">{t(lang, 'registration.genderMale')}</option>
+                  <option value="Female">{t(lang, 'registration.genderFemale')}</option>
+                  <option value="Other">{t(lang, 'registration.genderOther')}</option>
                 </select>
               </div>
             </div>
@@ -184,26 +181,26 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
           </div>
 
           {/* ABHA ID Section with instant verification badge */}
-          <div className="bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80 space-y-3">
+          <div className="bg-teal-tint border border-line p-5 rounded-2xl space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-1.5">
-                <Fingerprint className="w-4 h-4 text-cyan-400" />
-                <span>{lang === 'en' ? 'ABHA Health ID (Ayushman Bharat)' : 'आभा हेल्थ आईडी'}</span>
+              <label className="text-xs font-medium text-ink-soft flex items-center space-x-1.5 font-sans">
+                <Fingerprint className="w-4 h-4 text-teal" />
+                <span>{t(lang, 'registration.abhaLabel')}</span>
               </label>
 
               {abhaVerified ? (
-                <span className="inline-flex items-center space-x-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Verified via ABDM</span>
+                <span className="inline-flex items-center space-x-1 text-[11px] font-semibold text-teal bg-teal-tint px-2.5 py-1 rounded-full border border-teal/20">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-teal" />
+                  <span>{t(lang, 'registration.abhaVerified')}</span>
                 </span>
               ) : (
                 <button
                   type="button"
                   onClick={handleVerifyAbha}
                   disabled={isVerifying}
-                  className="text-xs font-bold text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
+                  className="text-xs font-medium text-teal hover:text-teal-dark underline cursor-pointer"
                 >
-                  {isVerifying ? 'Verifying OTP...' : 'Verify Now'}
+                  {isVerifying ? t(lang, 'registration.abhaVerifying') : t(lang, 'registration.abhaVerifyNow')}
                 </button>
               )}
             </div>
@@ -216,35 +213,33 @@ export default function PatientAuth({ patientData, setPatientData, onComplete, l
                 setPatientData({ ...patientData, abhaId: e.target.value });
                 setAbhaVerified(false);
               }}
-              className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+              className="w-full px-4 py-3 rounded-xl bg-bg border border-line text-ink placeholder:text-ink-faint font-mono text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-teal transition"
             />
           </div>
 
           {/* ABDM & DPDP Consent */}
-          <div className="flex items-start space-x-3 p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/20">
+          <div className="flex items-start space-x-3 p-4 rounded-2xl bg-teal-tint border border-line">
             <input
               type="checkbox"
               id="abdmConsent"
               checked={patientData.abdmConsented}
               onChange={(e) => setPatientData({ ...patientData, abdmConsented: e.target.checked })}
-              className="mt-1 w-4 h-4 rounded text-cyan-600 bg-slate-800 border-slate-700 focus:ring-cyan-500 cursor-pointer"
+              className="mt-1 w-4 h-4 rounded text-teal accent-teal bg-bg border-line focus:ring-teal cursor-pointer"
             />
-            <label htmlFor="abdmConsent" className="text-xs text-slate-300 leading-relaxed cursor-pointer select-none">
-              <strong className="text-white font-semibold">
-                {lang === 'en' ? 'Consent for Health Data Sharing:' : 'स्वास्थ्य डेटा साझाकरण हेतु सहमति:'}
+            <label htmlFor="abdmConsent" className="text-xs text-ink-soft leading-relaxed cursor-pointer select-none font-sans">
+              <strong className="text-ink font-semibold">
+                {t(lang, 'registration.consentTitle')}
               </strong>{' '}
-              {lang === 'en'
-                ? 'I consent to share digital symptoms, triage notes, and past records with the hospital physician in accordance with the Ayushman Bharat Digital Mission (ABDM) and DPDP Act 2023.'
-                : 'मैं एबीडीएम और डीपीडीपी अधिनियम 2023 के तहत डॉक्टर के साथ अपने लक्षण और रिकॉर्ड साझा करने की सहमति देता हूं।'}
+              {t(lang, 'registration.consentText')}
             </label>
           </div>
 
           {/* Action Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-bold py-4 rounded-2xl text-sm shadow-xl shadow-cyan-500/25 flex items-center justify-center space-x-2 transition transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            className="w-full bg-teal hover:bg-teal-dark text-white font-medium py-4 rounded-xl text-sm shadow-sm flex items-center justify-center space-x-2 transition cursor-pointer"
           >
-            <span>{lang === 'en' ? 'Register Profile & Open Health Vault' : 'प्रोफाइल दर्ज करें और वॉल्ट खोलें'}</span>
+            <span>{t(lang, 'registration.submit')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 

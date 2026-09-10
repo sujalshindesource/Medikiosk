@@ -393,7 +393,7 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                   <span>Active</span>
                 </span>
               </div>
-              <p className="text-[11px] text-emerald-200/70 hidden sm:block">ABDM Integrated Health Records & OPD Portal</p>
+              <p className="text-[11px] text-[#cfe8df] font-medium hidden sm:block">ABDM Integrated Health Records & OPD Portal</p>
             </div>
           </div>
 
@@ -401,11 +401,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
           <nav className="flex items-center space-x-1 sm:space-x-2">
             <button
               onClick={() => setActivePanel('overview')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                activePanel === 'overview'
-                  ? 'bg-white text-teal-900 shadow-md'
-                  : 'text-white/80 hover:text-white hover:bg-white/10'
-              }`}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${activePanel === 'overview'
+                ? 'bg-white text-teal-900 shadow-md'
+                : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
             >
               <ClipboardList className="w-3.5 h-3.5" />
               <span>{lang === 'en' ? 'Dashboard' : 'डैशबोर्ड'}</span>
@@ -413,11 +412,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
 
             <button
               onClick={() => { setActivePanel('opd'); setOpdView('form'); }}
-              className={`relative flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                activePanel === 'opd'
-                  ? 'bg-emerald-400 text-teal-950 shadow-md font-extrabold'
-                  : 'text-emerald-200 hover:text-white hover:bg-white/10 border border-emerald-400/30 bg-emerald-900/30'
-              }`}
+              className={`relative flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${activePanel === 'opd'
+                ? 'bg-emerald-400 text-teal-950 shadow-md font-extrabold'
+                : 'text-emerald-200 hover:text-white hover:bg-white/10 border border-emerald-400/30 bg-emerald-900/30'
+                }`}
             >
               <Stethoscope className="w-3.5 h-3.5" />
               <span>{lang === 'en' ? 'OPD' : 'ओपीडी'}</span>
@@ -426,11 +424,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
 
             <button
               onClick={() => { setActivePanel('documents'); setShowUploadModal(true); }}
-              className={`hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                activePanel === 'documents'
-                  ? 'bg-white text-teal-900 shadow-md'
-                  : 'text-white/80 hover:text-white hover:bg-white/10'
-              }`}
+              className={`hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${activePanel === 'documents'
+                ? 'bg-white text-teal-900 shadow-md'
+                : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
             >
               <FolderOpen className="w-3.5 h-3.5" />
               <span>{lang === 'en' ? 'Vault' : 'वॉल्ट'}</span>
@@ -497,11 +494,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                           }
                           setShowProfileMenu(false);
                         }}
-                        className={`w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-left transition cursor-pointer ${
-                          activePanel === item.id
-                            ? 'bg-teal-50 text-teal-700 font-semibold'
-                            : 'text-slate-700 hover:bg-slate-50'
-                        }`}
+                        className={`w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-left transition cursor-pointer ${activePanel === item.id
+                          ? 'bg-teal-50 text-teal-700 font-semibold'
+                          : 'text-slate-700 hover:bg-slate-50'
+                          }`}
                       >
                         <item.icon className={`w-4 h-4 ${activePanel === item.id ? 'text-teal-600' : item.color}`} />
                         <span className="flex-1">{item.label}</span>
@@ -549,24 +545,24 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
           <div className="space-y-6 page-enter">
 
             {/* OPD Quick Action Banner */}
-            <div className="bg-gradient-to-r from-teal-800 via-emerald-800 to-teal-900 rounded-2xl p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-gradient-to-r from-teal-800 via-emerald-800 to-teal-900 rounded-2xl p-6 text-black shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center space-x-2">
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-400 text-teal-950 text-xs font-black uppercase tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-400 text-black text-xs font-black uppercase tracking-wider">
                     OPD Desk
                   </span>
-                  <span className="text-xs text-emerald-200">ABDM e-Prescription Active</span>
+                  <span className="text-xs text-black">ABDM e-Prescription Active</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black tracking-tight">Need a Clinical Consultation?</h2>
-                <p className="text-xs sm:text-sm text-emerald-100/80 max-w-xl">
+                <p className="text-xs sm:text-sm text-black max-w-xl">
                   Book an OPD appointment, consult with specialized doctors (Allopathic & AYUSH), and instantly receive your official digital OPD Report.
                 </p>
               </div>
               <button
                 onClick={() => { setActivePanel('opd'); setOpdView('form'); }}
-                className="bg-white hover:bg-emerald-50 text-teal-900 font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition flex items-center justify-center space-x-2 cursor-pointer self-start md:self-auto shrink-0"
+                className="bg-white hover:bg-emerald-50 text-black font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition flex items-center justify-center space-x-2 cursor-pointer self-start md:self-auto shrink-0"
               >
-                <Stethoscope className="w-4 h-4 text-emerald-600" />
+                <Stethoscope className="w-4 h-4 text-black" />
                 <span>Start OPD Consultation &rarr;</span>
               </button>
             </div>
@@ -633,11 +629,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                           <div className="text-xs text-slate-400">{c.dept}</div>
                         </td>
                         <td className="px-5 py-4">
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                            c.stream === 'Allopathic'
-                              ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                              : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          }`}>
+                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${c.stream === 'Allopathic'
+                            ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            }`}>
                             {c.stream}
                           </span>
                         </td>
@@ -699,22 +694,20 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
               <div className="flex items-center space-x-2 self-start sm:self-auto">
                 <button
                   onClick={() => setOpdView('form')}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    opdView === 'form'
-                      ? 'bg-teal-600 text-white shadow'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${opdView === 'form'
+                    ? 'bg-teal-600 text-white shadow'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                    }`}
                 >
                   New OPD Consultation
                 </button>
                 {generatedReport && (
                   <button
                     onClick={() => setOpdView('report')}
-                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                      opdView === 'report'
-                        ? 'bg-emerald-600 text-white shadow'
-                        : 'bg-white text-emerald-700 border border-emerald-300 hover:bg-emerald-50'
-                    }`}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${opdView === 'report'
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'bg-white text-emerald-700 border border-emerald-300 hover:bg-emerald-50'
+                      }`}
                   >
                     View OPD Report ({generatedReport.token})
                   </button>
@@ -792,17 +785,15 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                         <div
                           key={dept}
                           onClick={() => handleDepartmentChange(dept)}
-                          className={`p-4 rounded-xl border-2 transition cursor-pointer ${
-                            isSelected
-                              ? 'border-teal-600 bg-teal-50/50 shadow-sm'
-                              : 'border-slate-200 hover:border-slate-300 bg-white'
-                          }`}
+                          className={`p-4 rounded-xl border-2 transition cursor-pointer ${isSelected
+                            ? 'border-teal-600 bg-teal-50/50 shadow-sm'
+                            : 'border-slate-200 hover:border-slate-300 bg-white'
+                            }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{dept}</span>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                              isAyush ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'
-                            }`}>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isAyush ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'
+                              }`}>
                               {isAyush ? 'AYUSH' : 'Allopathic'}
                             </span>
                           </div>
@@ -829,11 +820,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                             type="button"
                             key={sym}
                             onClick={() => handleToggleSymptom(sym)}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                              isSelected
-                                ? 'bg-teal-700 text-white shadow-sm'
-                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
-                            }`}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${isSelected
+                              ? 'bg-teal-700 text-white shadow-sm'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
+                              }`}
                           >
                             {isSelected ? '✓ ' : '+ '}
                             {sym}
@@ -1169,11 +1159,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                       setPatientData(prev => ({ ...prev, email: e.target.value }));
                       if (validationErrors.email) setValidationErrors(prev => ({ ...prev, email: null }));
                     }}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 outline-none transition ${
-                      validationErrors.email || (!isEmailValid && patientData.email)
-                        ? 'border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                        : 'border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20'
-                    }`}
+                    className={`w-full px-4 py-3 rounded-xl border text-sm text-slate-800 outline-none transition ${validationErrors.email || (!isEmailValid && patientData.email)
+                      ? 'border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20'
+                      }`}
                   />
                   {validationErrors.email && (
                     <p className="text-xs text-red-600 mt-1 font-medium">{validationErrors.email}</p>
@@ -1211,11 +1200,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                         setPatientData(prev => ({ ...prev, phone: digitsOnly }));
                         if (validationErrors.phone) setValidationErrors(prev => ({ ...prev, phone: null }));
                       }}
-                      className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm font-mono text-slate-800 outline-none transition ${
-                        validationErrors.phone || (!isPhoneValid && cleanCurrentPhone.length > 0)
-                          ? 'border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-                          : 'border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20'
-                      }`}
+                      className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm font-mono text-slate-800 outline-none transition ${validationErrors.phone || (!isPhoneValid && cleanCurrentPhone.length > 0)
+                        ? 'border-red-400 bg-red-50/20 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+                        : 'border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20'
+                        }`}
                     />
                   </div>
                   {validationErrors.phone && (
@@ -1542,11 +1530,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                 <button
                   key={tab.id}
                   onClick={() => setDocFilter(tab.id)}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    docFilter === tab.id
-                      ? 'bg-teal-600 text-white shadow'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-                  }`}
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${docFilter === tab.id
+                    ? 'bg-teal-600 text-white shadow'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -1561,12 +1548,11 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                   filteredDocs.map((doc) => (
                     <div key={doc.id} className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition">
                       <div className="flex items-center space-x-3">
-                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
-                          doc.type === 'prescription' ? 'bg-purple-50 text-purple-600' :
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${doc.type === 'prescription' ? 'bg-purple-50 text-purple-600' :
                           doc.type === 'lab' ? 'bg-blue-50 text-blue-600' :
-                          doc.type === 'imaging' ? 'bg-cyan-50 text-cyan-600' :
-                          'bg-amber-50 text-amber-600'
-                        }`}>
+                            doc.type === 'imaging' ? 'bg-cyan-50 text-cyan-600' :
+                              'bg-amber-50 text-amber-600'
+                          }`}>
                           <FileText className="w-5 h-5" />
                         </div>
                         <div>
@@ -1580,11 +1566,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                          doc.status === 'Verified'
-                            ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                            : 'bg-amber-50 text-amber-600 border border-amber-200'
-                        }`}>
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${doc.status === 'Verified'
+                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                          : 'bg-amber-50 text-amber-600 border border-amber-200'
+                          }`}>
                           {doc.status}
                         </span>
                         <button onClick={() => handleDeleteDoc(doc.id)} className="p-1.5 text-slate-400 hover:text-red-500 rounded-lg transition cursor-pointer">
@@ -1645,11 +1630,10 @@ export default function PatientDashboard({ patientData, setPatientData, onSignOu
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                        doc.status === 'Verified'
-                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-600 border border-amber-200'
-                      }`}>
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${doc.status === 'Verified'
+                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                        : 'bg-amber-50 text-amber-600 border border-amber-200'
+                        }`}>
                         {doc.status}
                       </span>
                       <button onClick={() => handleDeleteDoc(doc.id)} className="p-1.5 text-slate-400 hover:text-red-500 rounded-lg transition cursor-pointer">

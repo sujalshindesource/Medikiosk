@@ -16,6 +16,8 @@ import TreatmentPage from './components/doctor/TreatmentPage.jsx';
 import ConsentVerify from './components/shared/ConsentVerify.jsx';
 
 import { safeSupabaseCall, isSupabaseConfigured } from './supabaseClient.js';
+import { useLanguage } from './LanguageContext.jsx';
+import { LANDING_LANGS, t } from './landingStrings.js';
 
 const DEFAULT_PATIENT = {
   fullName: '',
@@ -45,7 +47,7 @@ const RETURNING_PATIENT_TEMPLATE = {
 
 export default function App() {
   const [screen, setScreen] = useState('landing');
-  const [lang, setLang] = useState('en');
+  const { lang, setLang } = useLanguage();
   const [patientData, setPatientData] = useState(DEFAULT_PATIENT);
   const [doctorData, setDoctorData] = useState(null);
   const [queue, setQueue] = useState([]); // shared "consultations" table, in-memory
@@ -129,41 +131,54 @@ export default function App() {
 
   // ── Shared top navigation shown on landing / auth screens ──────────────
   const TopNav = () => (
-    <div className="flex items-center justify-between mb-8">
-      <div className="flex items-center space-x-2.5">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center text-white font-black text-sm shadow-lg">
+    <div className="bg-surface border-b border-line rounded-2xl px-5 py-3.5 mb-8 flex items-center justify-between shadow-sm">
+      <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => setScreen('landing')}>
+        <div className="w-9 h-9 rounded-xl bg-teal-tint border border-line flex items-center justify-center text-teal font-black text-sm">
           MK
         </div>
-        <span className="font-bold text-white text-lg tracking-tight">MediKiosk</span>
+        <span className="font-serif text-xl font-semibold tracking-tight">
+          <span className="text-teal-dark">Medi</span><span className="text-saffron">Kiosk</span>
+        </span>
       </div>
       <div className="flex items-center flex-wrap gap-2">
-        <button
-          onClick={() => setLang(l => l === 'en' ? 'hi' : 'en')}
-          className="flex items-center space-x-1.5 text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg transition cursor-pointer"
-        >
-          <Globe className="w-3.5 h-3.5" />
-          <span>{lang === 'en' ? 'हिंदी' : 'EN'}</span>
-        </button>
+        <div className="flex items-center gap-1 bg-bg p-1 rounded-xl border border-line">
+          {LANDING_LANGS.map((l) => {
+            const isActive = l.code === lang;
+            return (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                className={`text-xs px-2.5 py-1 rounded-lg transition cursor-pointer font-sans font-medium ${
+                  isActive
+                    ? 'bg-teal text-white shadow-xs'
+                    : 'border border-line text-ink-soft hover:text-ink hover:bg-teal-tint/40'
+                }`}
+              >
+                {l.label}
+              </button>
+            );
+          })}
+        </div>
         <button
           onClick={() => setScreen('patient-login')}
-          className="flex items-center space-x-1.5 text-xs font-bold text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700 px-3.5 py-2 rounded-lg transition cursor-pointer"
+          className="flex items-center space-x-1.5 text-xs font-semibold text-white bg-teal hover:bg-teal-dark px-4 py-2 rounded-xl transition cursor-pointer shadow-sm"
         >
           <UserRound className="w-3.5 h-3.5" />
-          <span>Patient Login</span>
+          <span>{t(lang, 'nav.patientLogin')}</span>
         </button>
         <button
           onClick={() => setScreen('doctor-login')}
-          className="flex items-center space-x-1.5 text-xs font-bold text-blue-200 hover:text-white bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 px-3.5 py-2 rounded-lg transition cursor-pointer"
+          className="flex items-center space-x-1.5 text-xs font-medium text-ink-soft hover:text-ink bg-transparent hover:bg-teal-tint/40 border border-line px-3.5 py-2 rounded-xl transition cursor-pointer"
         >
-          <Stethoscope className="w-3.5 h-3.5" />
-          <span>Doctor Login</span>
+          <Stethoscope className="w-3.5 h-3.5 text-teal" />
+          <span>{t(lang, 'nav.doctorLogin')}</span>
         </button>
         <button
           onClick={() => setScreen('consent-desk')}
-          className="flex items-center space-x-1.5 text-xs font-bold text-cyan-200 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 px-3.5 py-2 rounded-lg transition cursor-pointer"
+          className="flex items-center space-x-1.5 text-xs font-medium text-ink-soft hover:text-ink bg-transparent hover:bg-teal-tint/40 border border-line px-3.5 py-2 rounded-xl transition cursor-pointer"
         >
-          <KeyRound className="w-3.5 h-3.5" />
-          <span>Reception Desk</span>
+          <KeyRound className="w-3.5 h-3.5 text-teal" />
+          <span>{t(lang, 'nav.receptionDesk')}</span>
         </button>
       </div>
     </div>
@@ -176,6 +191,7 @@ export default function App() {
       return (
         <Login
           lang={lang}
+          onBack={() => setScreen('landing')}
           onLogin={(email) => {
             setPatientData({ ...RETURNING_PATIENT_TEMPLATE, email });
             setScreen('patient-dashboard');
@@ -185,7 +201,7 @@ export default function App() {
 
     case 'patient-register':
       return (
-        <div className="min-h-screen bg-slate-950 px-4 py-10" style={{ background: 'linear-gradient(180deg, #020617 0%, #0b1524 100%)' }}>
+        <div className="min-h-screen bg-bg text-ink font-sans px-4 py-10">
           <div className="max-w-5xl mx-auto"><TopNav /></div>
           <PatientAuth
             patientData={patientData}
@@ -249,6 +265,7 @@ export default function App() {
     case 'doctor-login':
       return (
         <DoctorLogin
+          onBack={() => setScreen('landing')}
           onLoginSuccess={(doc) => {
             setDoctorData(doc);
             setScreen('doctor-dashboard');
@@ -298,13 +315,13 @@ export default function App() {
     case 'landing':
     default:
       return (
-        <div className="min-h-screen px-4 py-10" style={{ background: 'linear-gradient(180deg, #020617 0%, #0b1524 100%)' }}>
+        <div className="min-h-screen bg-bg text-ink font-sans px-4 py-10">
           <div className="max-w-5xl mx-auto">
             <TopNav />
             <LandingHero lang={lang} onStart={() => { setPatientData(DEFAULT_PATIENT); setScreen('patient-register'); }} />
-            <div className="mt-10 flex items-center justify-center space-x-2 text-[11px] text-slate-600">
-              <Activity className="w-3.5 h-3.5" />
-              <span>MediKiosk AI-OPD Suite • Built for the 2-minute consultation problem</span>
+            <div className="mt-10 flex items-center justify-center space-x-2 text-[11px] text-ink-faint">
+              <Activity className="w-3.5 h-3.5 text-teal" />
+              <span>{t(lang, 'footer.tagline')}</span>
             </div>
           </div>
         </div>
